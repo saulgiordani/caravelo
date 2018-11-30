@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="caravelo.assignments.main" target="1.8" />
+      <module name="caravelo.assignments.test" target="1.8" />
+      <module name="caravelo.flo.main" target="1.8" />
+      <module name="caravelo.flo.test" target="1.8" />
+      <module name="caravelo.refa.main" target="1.8" />
+      <module name="caravelo.refa.test" target="1.8" />
+      <module name="caravelo.refactor-.main" target="1.8" />
+      <module name="caravelo.refactor-.test" target="1.8" />
+      <module name="caravelo.refactor-0001.main" target="1.8" />
+      <module name="caravelo.refactor-0001.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
