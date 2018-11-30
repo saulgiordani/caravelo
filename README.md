@@ -1,8 +1,8 @@
-# Flow Executor Refactor
+# Refactor: Flow Executor
 
 [![Level](https://img.shields.io/badge/Level-intermediate-blue.svg)](https://shields.io/)
 
-This is Caravelo's refactoring assignment.
+This is Caravelo's refactoring assignment from intermediate to advanced level.
 
 In this repository you will find low quality code, full of bad smells, with poor packaging, modeling, design &c.
 
