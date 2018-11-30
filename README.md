@@ -16,6 +16,35 @@ You can start with the unit test located in 'src/test' to figure out the expecte
 Don't pay much attention to semantics of the project since it's a fake use case.
 The requirement is clarity and coherence.
 
+## Prerequisites
+
+* Java 8
+* [Gradle](https://gradle.org/)
+
+## Instructions
+
+1. Copy this repository.
+2. Refactor the code on your own copy.
+3. Push the changes to your repository.
+3. Notify your repository location to Caravelo's HR contact when done.
+
+### Hints
+
+Clone assignment repo:
+```
+$ git clone https://git.caravelo.com/recruitment/refactor-2.git
+$ cd refactor-2
+```
+Remove remote origin:
+```
+$ git remote -v
+$ git remote remove origin
+```
+Point a remote to your own repository:
+```
+$ git remote add origin <your repository>
+```
+
 ---
 
 ( ^..^)ﾉ Have fun!
