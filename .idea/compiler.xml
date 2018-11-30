@@ -12,6 +12,8 @@
       <module name="caravelo.refactor-.test" target="1.8" />
       <module name="caravelo.refactor-0001.main" target="1.8" />
       <module name="caravelo.refactor-0001.test" target="1.8" />
+      <module name="caravelo.refactor-001.main" target="1.8" />
+      <module name="caravelo.refactor-001.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

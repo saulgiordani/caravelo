@@ -2,6 +2,8 @@
 
 This is Caravelo's refactoring assignment.
 
+[![Level](https://img.shields.io/badge/Level-intermediate-blue.svg)](https://shields.io/)
+
 In this repository you will find low quality code, full of bad smells, with poor packaging, modeling, design &c.
 
 So, we expect from you a refactor of this little fake codebase having the following drivers in mind:
