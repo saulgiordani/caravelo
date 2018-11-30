@@ -32,8 +32,8 @@ The requirement is clarity and coherence.
 
 Clone assignment repo:
 ```
-$ git clone https://git.caravelo.com/recruitment/refactor-2.git
-$ cd refactor-2
+$ git clone https://git.caravelo.com/recruitment/refactor-1.git
+$ cd refactor-1
 ```
 Remove remote origin:
 ```
