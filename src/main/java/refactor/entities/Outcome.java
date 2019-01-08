@@ -1,12 +1,10 @@
-package refactor;
+package refactor.entities;
+
+import refactor.type.FlightInventoryStatus;
 
 public class Outcome {
     private Integer target;
-    private FlightInventoryStatus inventoryStatus;
-
-    public Outcome() {
-        this.inventoryStatus = FlightInventoryStatus.NA;
-    }
+    private FlightInventoryStatus inventoryStatus = FlightInventoryStatus.NA;
 
     public Integer getTarget() {
         return target;
@@ -22,9 +20,5 @@ public class Outcome {
 
     public void setInventoryStatus(FlightInventoryStatus inventoryStatus) {
         this.inventoryStatus = inventoryStatus;
-    }
-
-    public enum FlightInventoryStatus {
-        CLOSED, OPEN, NA
     }
 }

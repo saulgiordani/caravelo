@@ -1,4 +1,4 @@
-package refactor;
+package refactor.entities;
 
 public class Flight {
     private Integer capacity;

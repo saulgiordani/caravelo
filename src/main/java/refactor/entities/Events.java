@@ -1,22 +1,21 @@
-package refactor;
+package refactor.entities;
+
+import refactor.type.CampaignType;
 
 /**
  * Helper to build events.
  */
 public final class Events {
-    private Events() {
 
-    }
-
-    static NotifyOutcome notify(String email, Outcome outcome, Campaign.CampaignType type) {
+    static public NotifyOutcome notify(String email, Outcome outcome, CampaignType type) {
         return new NotifyOutcome(type, email, outcome);
     }
 
-    static ReviewFlight toReview(Flight flight) {
+    static public ReviewFlight toReview(Flight flight) {
         return new ReviewFlight(flight);
     }
 
-    static ToCleaningQueue toCleaningQueue(Flight flight) {
+    static public ToCleaningQueue toCleaningQueue(Flight flight) {
         return new ToCleaningQueue(flight);
     }
 
@@ -30,7 +29,7 @@ public final class Events {
     /**
      * Signals manual intervention.
      */
-    static class ReviewFlight implements FlowEvent {
+    public static class ReviewFlight implements FlowEvent {
         ReviewFlight(Flight flight) {
             // out of scope
         }
@@ -39,7 +38,7 @@ public final class Events {
     /**
      * Puts a flight into the cleaning queue.
      */
-    static class ToCleaningQueue implements FlowEvent {
+    public static class ToCleaningQueue implements FlowEvent {
         ToCleaningQueue(Flight flight) {
             // out of scope
         }
@@ -48,11 +47,11 @@ public final class Events {
     /**
      * Mail notification.
      */
-    static class NotifyOutcome implements FlowEvent {
+    public static class NotifyOutcome implements FlowEvent {
         public final Outcome outcome;
         public final String email;
 
-        NotifyOutcome(Campaign.CampaignType type, String email, Outcome outcome) {
+        NotifyOutcome(CampaignType type, String email, Outcome outcome) {
             this.email = email;
             this.outcome = outcome;
         }

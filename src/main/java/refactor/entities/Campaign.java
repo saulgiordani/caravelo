@@ -1,4 +1,6 @@
-package refactor;
+package refactor.entities;
+
+import refactor.type.CampaignType;
 
 public class Campaign {
     private CampaignType type;
@@ -33,9 +35,5 @@ public class Campaign {
 
     public void setOversellFactor(float oversellFactor) {
         this.oversellFactor = oversellFactor;
-    }
-
-    public enum CampaignType {
-        A, B, C, Z
     }
 }

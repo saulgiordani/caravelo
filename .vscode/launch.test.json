@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "refactor-1",
+                "projectName": "refactor-1",
+                "workingDirectory": "/Users/saulgiordani/Desktop/caravelo/refactor-1",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "refactor-1",
+                "projectName": "refactor-1",
+                "workingDirectory": "/Users/saulgiordani/Desktop/caravelo/refactor-1",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

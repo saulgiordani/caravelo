@@ -3,7 +3,14 @@ package refactor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import refactor.entities.Campaign;
+import refactor.entities.Events;
+import refactor.entities.Flight;
+import refactor.entities.Outcome;
 import refactor.support.DummyEventListener;
+import refactor.type.CampaignType;
+import refactor.type.FlightInventoryStatus;
 
 public class FlowExecutorTest {
 
@@ -20,7 +27,7 @@ public class FlowExecutorTest {
 
     @Test
     public void flowA_NoOversell() {
-        Campaign c = new Campaign(Campaign.CampaignType.A, 0, 0);
+        Campaign c = new Campaign(CampaignType.A, 0, 0);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
@@ -29,7 +36,7 @@ public class FlowExecutorTest {
 
     @Test
     public void flowA_OversellBy15Seats() {
-        Campaign c = new Campaign(Campaign.CampaignType.A, 15, 0);
+        Campaign c = new Campaign(CampaignType.A, 15, 0);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
@@ -38,7 +45,7 @@ public class FlowExecutorTest {
 
     @Test
     public void flowA_NotifyOutcome() {
-        Campaign c = new Campaign(Campaign.CampaignType.A, 15, 0);
+        Campaign c = new Campaign(CampaignType.A, 15, 0);
         DummyEventListener listener = new DummyEventListener();
         executor.register(listener);
 
@@ -51,26 +58,26 @@ public class FlowExecutorTest {
 
     @Test
     public void flowA_FlagsClosedFlight() {
-        Campaign c = new Campaign(Campaign.CampaignType.A, 0, 0);
+        Campaign c = new Campaign(CampaignType.A, 0, 0);
         flight.setSold(flight.getCapacity());
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Flight should be closed", Outcome.FlightInventoryStatus.CLOSED, o.getInventoryStatus());
+        Assert.assertEquals("Flight should be closed", FlightInventoryStatus.CLOSED, o.getInventoryStatus());
     }
 
     @Test
     public void flowA_FlagsOpenFlight() {
-        Campaign c = new Campaign(Campaign.CampaignType.A, 0, 0);
+        Campaign c = new Campaign(CampaignType.A, 0, 0);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Flight should be open", Outcome.FlightInventoryStatus.OPEN, o.getInventoryStatus());
+        Assert.assertEquals("Flight should be open", FlightInventoryStatus.OPEN, o.getInventoryStatus());
     }
 
     @Test
     public void flowB_NoOversell() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0);
+        Campaign c = new Campaign(CampaignType.B, 0, 0);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
@@ -79,26 +86,26 @@ public class FlowExecutorTest {
 
     @Test
     public void flowB_FlagClosedFlight() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.15f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.15f);
         flight.setSold(flight.getCapacity());
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Flight should be closed", Outcome.FlightInventoryStatus.CLOSED, o.getInventoryStatus());
+        Assert.assertEquals("Flight should be closed", FlightInventoryStatus.CLOSED, o.getInventoryStatus());
     }
 
     @Test
     public void flowB_FlagsClosedFlightByProjection() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.75f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.75f);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Flight should be closed", Outcome.FlightInventoryStatus.CLOSED, o.getInventoryStatus());
+        Assert.assertEquals("Flight should be closed", FlightInventoryStatus.CLOSED, o.getInventoryStatus());
     }
 
     @Test
     public void flowB_SignalsToReviewEvent() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.15f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.15f);
         flight.setSold(flight.getCapacity());
         DummyEventListener listener = new DummyEventListener();
         executor.register(listener);
@@ -110,37 +117,37 @@ public class FlowExecutorTest {
 
     @Test
     public void flowB_FlagsOpenFlight() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.15f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.15f);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Flight should be open", Outcome.FlightInventoryStatus.OPEN, o.getInventoryStatus());
+        Assert.assertEquals("Flight should be open", FlightInventoryStatus.OPEN, o.getInventoryStatus());
     }
 
     @Test
     public void flowB_FlagsOpenFlightLongHaul() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.10f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.10f);
         flight.setLongHaul(true);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Long haul flight should be open", Outcome.FlightInventoryStatus.OPEN, o.getInventoryStatus());
+        Assert.assertEquals("Long haul flight should be open", FlightInventoryStatus.OPEN, o.getInventoryStatus());
     }
 
     @Test
     public void flowB_FlagsClosedFlightLongHaul() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.15f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.15f);
         flight.setLongHaul(true);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Long haul flight should be closed", Outcome.FlightInventoryStatus.CLOSED, o.getInventoryStatus());
+        Assert.assertEquals("Long haul flight should be closed", FlightInventoryStatus.CLOSED, o.getInventoryStatus());
     }
 
 
     @Test
     public void flowB_OversellBy25PctOfCap() {
-        Campaign c = new Campaign(Campaign.CampaignType.B, 0, 0.25f);
+        Campaign c = new Campaign(CampaignType.B, 0, 0.25f);
 
         Outcome o = executor.execute(c, flight, EMAIL);
 
@@ -149,7 +156,7 @@ public class FlowExecutorTest {
 
     @Test
     public void flowC_ToCleaningQueue() {
-        Campaign c = new Campaign(Campaign.CampaignType.C, 0, 0);
+        Campaign c = new Campaign(CampaignType.C, 0, 0);
         DummyEventListener listener = new DummyEventListener();
         executor.register(listener);
 
@@ -160,7 +167,7 @@ public class FlowExecutorTest {
 
     @Test
     public void flowC_EmptyOverbooked() {
-        Campaign c = new Campaign(Campaign.CampaignType.C, 0, 0);
+        Campaign c = new Campaign(CampaignType.C, 0, 0);
         flight.setSold(flight.getCapacity() + 1);
 
         Outcome o = executor.execute(c, flight, EMAIL);
@@ -170,7 +177,7 @@ public class FlowExecutorTest {
 
     @Test(expected = UnsupportedFlowType.class)
     public void flowTypeIsNotSupported() {
-        Campaign c = new Campaign(Campaign.CampaignType.Z, 0, 0);
+        Campaign c = new Campaign(CampaignType.Z, 0, 0);
 
         executor.execute(c, flight, EMAIL);
 
