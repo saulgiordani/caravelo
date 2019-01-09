@@ -2,7 +2,7 @@ package refactor.support;
 
 import com.google.common.eventbus.Subscribe;
 
-import refactor.entities.Events.FlowEvent;
+import refactor.helper.EventsHelper.FlowEvent;
 
 public class DummyEventListener {
     private FlowEvent lastEvent;

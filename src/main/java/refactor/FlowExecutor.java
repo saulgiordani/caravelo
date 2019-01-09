@@ -3,9 +3,10 @@ package refactor;
 import com.google.common.eventbus.EventBus;
 
 import refactor.entities.Campaign;
-import refactor.entities.Events;
 import refactor.entities.Flight;
 import refactor.entities.Outcome;
+import refactor.exception.UnsupportedFlowType;
+import refactor.helper.EventsHelper;
 import refactor.type.FlightInventoryStatus;
 
 /**
@@ -32,30 +33,37 @@ public class FlowExecutor {
             // 1. Determine absolute target
             target = f.getCapacity() + c.getOversell();
             outcome.setTarget(target);
+
             // 2. Flag closed flights
             if (f.getSold() >= f.getCapacity()) {
                 outcome.setInventoryStatus(FlightInventoryStatus.CLOSED);
             } else {
                 outcome.setInventoryStatus(FlightInventoryStatus.OPEN);
             }
+
             // 3. Notify outcome
-            bus.post(Events.notify(email, outcome, c.getType()));
-            return outcome;
+            bus.post(EventsHelper.notify(email, outcome, c.getType()));
+            break;
 
         case B:
             // 1. Determine relative target
             target = f.getCapacity() + (int) (f.getCapacity() * c.getOversellFactor());
             outcome.setTarget(target);
+
             // 2. Flag closed flights
             int safetyMargin = f.isLongHaul() ? 40 : 10;
-            if (f.getCapacity() - safetyMargin >= f.getSold() + (target - f.getCapacity())) {
+            int remainingCapacity = f.getCapacity() - safetyMargin;
+            int totalPassengers = f.getSold() + (target - f.getCapacity());
+
+            if (remainingCapacity >= totalPassengers) {
                 outcome.setInventoryStatus(FlightInventoryStatus.OPEN);
             } else {
                 outcome.setInventoryStatus(FlightInventoryStatus.CLOSED);
+
                 // 3. Signal flight to be reviewed
-                bus.post(Events.toReview(f));
+                bus.post(EventsHelper.toReview(f));
             }
-            return outcome;
+            break;
 
         case C:
             // 1. Determine target by load factor
@@ -63,13 +71,15 @@ public class FlowExecutor {
                 outcome.setTarget(f.getCapacity());
             } else {
                 // 1.1. Put flight into cleaning queue
-                this.bus.post(Events.toCleaningQueue(f));
+                this.bus.post(EventsHelper.toCleaningQueue(f));
             }
-            return outcome;
+            break;
 
         default:
             throw new UnsupportedFlowType();
         }
+
+        return outcome;
     }
 
     void register(Object listener) {

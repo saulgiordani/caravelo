@@ -1,14 +1,20 @@
-package refactor.entities;
+package refactor.helper;
 
+import refactor.entities.Flight;
+import refactor.entities.Outcome;
 import refactor.type.CampaignType;
 
 /**
  * Helper to build events.
  */
-public final class Events {
+public final class EventsHelper {
 
     static public NotifyOutcome notify(String email, Outcome outcome, CampaignType type) {
         return new NotifyOutcome(type, email, outcome);
+    }
+
+    static public WarningOverbooking warnForPossibleOverbooking(Flight flight) {
+        return new WarningOverbooking(flight);
     }
 
     static public ReviewFlight toReview(Flight flight) {
@@ -24,6 +30,15 @@ public final class Events {
      */
     public interface FlowEvent {
         //
+    }
+
+    /**
+     * Warn the gate's desk for possible overbooking.
+     */
+    public static class WarningOverbooking implements FlowEvent {
+        WarningOverbooking(Flight flight) {
+            // out of scope
+        }
     }
 
     /**

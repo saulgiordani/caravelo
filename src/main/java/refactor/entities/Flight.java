@@ -3,12 +3,16 @@ package refactor.entities;
 public class Flight {
     private Integer capacity;
     private Integer sold;
-    private boolean longHaul;
+    private boolean longHaul = false;
 
+    /**
+     * Constructor - longHaul false by default
+     * @param capacity
+     * @param sold
+     */
     public Flight(Integer capacity, Integer sold) {
         this.capacity = capacity;
         this.sold = sold;
-        this.longHaul = false;
     }
 
     public boolean isLongHaul() {

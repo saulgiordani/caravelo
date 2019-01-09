@@ -5,9 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import refactor.entities.Campaign;
-import refactor.entities.Events;
 import refactor.entities.Flight;
 import refactor.entities.Outcome;
+import refactor.exception.UnsupportedFlowType;
+import refactor.helper.EventsHelper;
 import refactor.support.DummyEventListener;
 import refactor.type.CampaignType;
 import refactor.type.FlightInventoryStatus;
@@ -50,7 +51,7 @@ public class FlowExecutorTest {
         executor.register(listener);
 
         Outcome o = executor.execute(c, flight, EMAIL);
-        Events.NotifyOutcome notify = listener.getLastEvent();
+        EventsHelper.NotifyOutcome notify = listener.getLastEvent();
 
         Assert.assertEquals("E-mail should match", EMAIL, notify.email);
         Assert.assertEquals("Inventory status should match", o.getInventoryStatus(), notify.outcome.getInventoryStatus());
@@ -112,7 +113,7 @@ public class FlowExecutorTest {
 
         executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Event type should be ReviewFlight", listener.getLastEventType(), Events.ReviewFlight.class);
+        Assert.assertEquals("Event type should be ReviewFlight", listener.getLastEventType(), EventsHelper.ReviewFlight.class);
     }
 
     @Test
@@ -162,7 +163,7 @@ public class FlowExecutorTest {
 
         executor.execute(c, flight, EMAIL);
 
-        Assert.assertEquals("Event type should be ToCleaningQueue", listener.getLastEventType(), Events.ToCleaningQueue.class);
+        Assert.assertEquals("Event type should be ToCleaningQueue", listener.getLastEventType(), EventsHelper.ToCleaningQueue.class);
     }
 
     @Test
@@ -183,5 +184,4 @@ public class FlowExecutorTest {
 
         Assert.fail("An UnsupportedFlowType exception should be thrown");
     }
-
 }
