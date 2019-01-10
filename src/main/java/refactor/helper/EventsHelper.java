@@ -63,10 +63,12 @@ public final class EventsHelper {
      * Mail notification.
      */
     public static class NotifyOutcome implements FlowEvent {
+        public final CampaignType type;
         public final Outcome outcome;
         public final String email;
 
         NotifyOutcome(CampaignType type, String email, Outcome outcome) {
+            this.type = type;
             this.email = email;
             this.outcome = outcome;
         }
